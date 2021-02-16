@@ -3,13 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import {
   StyleSheet,
-  View,
 } from 'react-native';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
-import Login from './src/screens/Login';
-import Verify from './src/screens/Verify';
-import Signup from './src/screens/Signup';
+import  TabNavigator from './src/screens/TabNavigator';
 
 
 const theme = {
@@ -28,9 +25,7 @@ const App = () => {
   return (
     <NavigationContainer>
     <PaperProvider theme={theme}>
-    <View>
-      <Signup />
-    </View>
+      <TabNavigator  />
     </PaperProvider>
     </NavigationContainer>
   );
