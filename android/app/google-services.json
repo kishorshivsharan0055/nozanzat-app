@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "841972058802",
+    "project_id": "nozanzat-c4fb9",
+    "storage_bucket": "nozanzat-c4fb9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841972058802:android:96728828a60f7a0f9c97ab",
+        "android_client_info": {
+          "package_name": "com.nozanzat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "841972058802-ovvjimmo6vqc3md4lvmv9a8kuimc0hsp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nozanzat",
+            "certificate_hash": "050768e804210dc0d162244ff9bf30ce82d2d15d"
+          }
+        },
+        {
+          "client_id": "841972058802-4efgtj6ljjaso96l0g9crvamdvehibdk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe7kJw0KpVCW0OXpbv_foARs6E6KXNMj0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "841972058802-4efgtj6ljjaso96l0g9crvamdvehibdk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
