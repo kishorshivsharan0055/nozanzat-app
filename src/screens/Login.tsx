@@ -1,41 +1,59 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import {TextInput, Button} from 'react-native-paper';
+// import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
-function Login() {
+type loginProps = {
+  state: any;
+  navigation: any;
+};
 
-    return (
-        <View style={styles.container}>
-            <Image source={require('../images/logo.png')} style={styles.logo}/>
+const Login: React.FC<loginProps> = ({navigation}) => {
+  return (
+    <View style={styles.parent}>
+      <Image source={require('../images/logo.png')} style={styles.logo} />
 
-            <View style={{marginTop: 30}}>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>Login</Text>
+      <View style={{marginTop: 30}}>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            fontSize: 25,
+            fontFamily: 'Poppins-Medium',
+          }}>
+          Login
+        </Text>
 
-            <TextInput
-                label="Phone No"
-                mode='outlined'
-                style={{height: 40, width: 300}}    
-            />
+        <TextInput
+          label="Phone No"
+          mode="outlined"
+          style={{height: 40, width: '100%', paddingTop: 5}}
+        />
 
-            <Button mode='contained' color='red' style={{marginTop: 10}}>Get OTP</Button>
-            </View>
-        </View>
-    )
-}
+        <Button
+          mode="contained"
+          color="red"
+          style={{marginTop: 15}}
+          onPress={() => navigation.navigate('Verify')}>
+          Get OTP
+        </Button>
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginLeft: 10,
-        marginRight: 10,
-        marginVertical: 200
-    },
-    logo: {
-        width: 200,
-        height: 70
-    }
+  parent: {
+    width: '100%',
+    justifyContent: 'center',
+    padding: 32,
+    marginTop: '50%',
+  },
+  logo: {
+    width: 260,
+    height: 90,
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
 });
 
 export default Login;

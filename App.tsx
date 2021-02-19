@@ -7,6 +7,8 @@ import {
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 import  TabNavigator from './src/screens/TabNavigator';
+import NavigationRoutes from './src/routes/NavigationRoutes';
+import HomeRoutes from './src/routes/HomeRoutes';
 
 
 const theme = {
@@ -23,9 +25,9 @@ const theme = {
 
 const App = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer >
     <PaperProvider theme={theme}>
-      <TabNavigator  />
+      <NavigationRoutes  />
     </PaperProvider>
     </NavigationContainer>
   );
