@@ -26,6 +26,7 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
   let [Color6, setColor6] = useState('white');
 
   let [services] = useState<Array<string>>(['', '']);
+  let [options] = useState<Array<string>>(['', '']);
   let [Len, setLen] = useState(0);
 
   return (
@@ -76,8 +77,6 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
                 setColor1('white');
               }
 
-              console.log(services);
-
               if (!selected1) {
                 setselected1(true);
               } else {
@@ -126,8 +125,6 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
                 setColor2('white');
               }
 
-              console.log(services);
-
               if (!selected2) {
                 setselected2(true);
               } else {
@@ -174,8 +171,6 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
                 setLen(Len - 1);
                 setColor3('white');
               }
-
-              console.log(services);
 
               if (!selected3) {
                 setselected3(true);
@@ -230,8 +225,6 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
                 setColor4('white');
               }
 
-              console.log(services);
-
               if (!selected4) {
                 setselected4(true);
               } else {
@@ -278,8 +271,6 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
                 setLen(Len - 1);
                 setColor5('white');
               }
-
-              console.log(services);
 
               if (!selected5) {
                 setselected5(true);
@@ -328,8 +319,6 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
                 setColor6('white');
               }
 
-              console.log(services);
-
               if (!selected6) {
                 setselected6(true);
               } else {
@@ -360,8 +349,13 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
               icon={require('../images/tick.png')}
               onPress={() => {
                 services.find((el) => el == 'Dry Cleaning')
-                  ? navigation.navigate('DryCleaning')
-                  : navigation.navigate('ServiceSelection');
+                  ? navigation.navigate('DryCleaning', {
+                      services: services,
+                    })
+                  : navigation.navigate('ServiceSelection', {
+                      services: services,
+                      options: options,
+                    });
               }}
             />
           ) : null}
@@ -375,6 +369,7 @@ const styles = StyleSheet.create({
   parent: {
     flex: 1,
     padding: 20,
+    backgroundColor: 'white',
   },
 
   servicesImg: {

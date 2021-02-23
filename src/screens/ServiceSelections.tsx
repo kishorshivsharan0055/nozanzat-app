@@ -1,28 +1,33 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {createContext, useContext, useState} from 'react';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {FAB} from 'react-native-paper';
+import {TotalContext} from '../../App';
 import SelectedQuantities from '../components/SelectedQuantity';
-import SectionedMultiSelect from 'react-native-sectioned-multi-select';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import {prices} from '../utils/prices';
 
-interface ServiceSelectionsProps {}
+interface ServiceSelectionsProps {
+  route: {
+    params: {
+      services: Array<string>;
+      options: Array<string>;
+    };
+  };
+  navigation: any;
+}
 
 const pinCode = [412101, 411001, 21001, 28981, 47823, 32324, 43242, 4324234];
 
-export const ServiceSelections: React.FC<ServiceSelectionsProps> = () => {
-  const [array, setArray] = useState<Array<string>>([
-    'Dry Cleaning',
-    'Wash and Iron (Unit)',
-    'Wash and Iron (Kg)',
-    'Wash and Fold (Kg)',
-  ]);
+export const ServiceSelections: React.FC<ServiceSelectionsProps> = ({
+  route,
+  navigation,
+}) => {
+  let total = useContext(TotalContext);
+  let {services, options} = route.params;
+  let len = options.length;
+
   const [pin_code, setPin_code] = useState(0);
   let [available, setavailable] = useState(0);
 
   const [SelectedItems, setSelectedItems] = useState<Array<string>>(['']);
-
-  const addItem = () => setArray([...array, '']);
 
   const checkAvailability = (pin: number) => {
     const found = pinCode.find((element) => element == pin);
@@ -35,40 +40,14 @@ export const ServiceSelections: React.FC<ServiceSelectionsProps> = () => {
     setSelectedItems(selectedItems);
   };
 
-  const items = [
-    // this is the parent or 'item'
-    {
-      name: 'Fruits',
-      id: 0,
-      // these are the children or 'sub items'
-      children: [
-        {
-          name: 'Apple',
-          id: 10,
-        },
-        {
-          name: 'Strawberry',
-          id: 17,
-        },
-        {
-          name: 'Pineapple',
-          id: 13,
-        },
-        {
-          name: 'Banana',
-          id: 14,
-        },
-        {
-          name: 'Watermelon',
-          id: 15,
-        },
-        {
-          name: 'Kiwi fruit',
-          id: 16,
-        },
-      ],
-    },
-  ];
+  const selectedDryCleaningOptions = () => {
+    return;
+    <View>
+      {options.map((el) => {
+        <SelectedQuantities title={el} />;
+      })}
+    </View>;
+  };
 
   return (
     <View style={styles.parent}>
@@ -100,32 +79,44 @@ export const ServiceSelections: React.FC<ServiceSelectionsProps> = () => {
                     }
                 </View> */}
 
-      <View style={{paddingTop: 10}}>
-        <Text
-          style={{
-            fontFamily: 'Poppins-Medium',
-            fontWeight: 'bold',
-            fontSize: 20,
-          }}>
-          Select Quantitiy
-        </Text>
+      <Text
+        style={{
+          fontFamily: 'Poppins-Medium',
+          fontWeight: 'bold',
+          fontSize: 20,
+        }}>
+        Select Quantity
+      </Text>
 
-        {array.find((element) => element == 'Dry Cleaning') && (
-          <View>
-            <Text>Select options from Dry Cleaning</Text>
-          </View>
+      <ScrollView
+        style={{
+          maxHeight: '70%',
+          elevation: 5,
+          backgroundColor: 'white',
+          padding: 10,
+        }}>
+        {services.find((element) => element == 'Wash and Iron (unit)') && (
+          <SelectedQuantities title="Wash and Iron (unit)" />
         )}
 
-        {array.find((element) => element == 'Wash and Iron (Unit)') && (
-          <SelectedQuantities title="Wash and Iron (Unit)" />
-        )}
-
-        {array.find((element) => element == 'Wash and Iron (Kg)') && (
+        {services.find((element) => element == 'Wash and Iron (Kg)') && (
           <SelectedQuantities title="Wash and Iron (Kg)" />
         )}
 
-        {array.find((element) => element == 'Wash and Fold (Kg)') && (
+        {services.find((element) => element == 'Wash and Fold (Kg)') && (
           <SelectedQuantities title="Wash and Fold (Kg)" />
+        )}
+
+        {services.find((element) => element == 'Dry Cleaning') && (
+          <View>
+            <Text style={{padding: 10, fontWeight: 'bold'}}>
+              Pick Quantities for Dry CLeaning
+            </Text>
+
+            {options.map((value, index) => (
+              <SelectedQuantities title={value} key={index} />
+            ))}
+          </View>
         )}
 
         <FAB
@@ -134,6 +125,30 @@ export const ServiceSelections: React.FC<ServiceSelectionsProps> = () => {
           color="white"
           icon={require('../images/tick.png')}
         />
+      </ScrollView>
+
+      <View style={{flexDirection: 'row'}}>
+        <Text
+          style={{
+            fontFamily: 'Poppins-Medium',
+            fontWeight: 'bold',
+            fontSize: 20,
+            margin: 10,
+          }}>
+          Total
+        </Text>
+
+        <Text
+          style={{
+            fontFamily: 'Poppins-Medium',
+            fontWeight: 'bold',
+            fontSize: 20,
+            margin: 10,
+            right: 10,
+            position: 'absolute',
+          }}>
+          Rs. {total}
+        </Text>
       </View>
     </View>
   );
@@ -143,6 +158,7 @@ const styles = StyleSheet.create({
   parent: {
     flex: 1,
     padding: 5,
+    backgroundColor: 'white',
   },
   fab: {
     position: 'absolute',

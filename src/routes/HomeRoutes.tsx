@@ -1,6 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import DryCleaningOptions from '../screens/DryCleaningOptions';
+import {DryCleaningOptions} from '../screens/DryCleaningOptions';
 import ServiceSelections from '../screens/ServiceSelections';
 import TabNavigator from '../screens/TabNavigator';
 

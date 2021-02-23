@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 32,
     marginTop: '50%',
+    backgroundColor: 'white',
   },
 
   logo: {

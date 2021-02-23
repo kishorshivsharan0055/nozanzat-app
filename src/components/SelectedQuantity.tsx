@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Image, Text, View} from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
+import {TotalContext} from '../../App';
 
 interface selectedQuantitiesProps {
   title: string;
@@ -9,7 +10,12 @@ interface selectedQuantitiesProps {
 export const SelectedQuantities: React.FC<selectedQuantitiesProps> = ({
   title,
 }) => {
-  console.log(title);
+  let total = useContext(TotalContext);
+
+  useEffect(() => {
+    return () => {};
+  }, [total]);
+
   return (
     <View style={{padding: 10, paddingBottom: 25}}>
       <Text> {title} </Text>
@@ -37,6 +43,9 @@ export const SelectedQuantities: React.FC<selectedQuantitiesProps> = ({
           height={35}
           buttonStyle={{borderRadius: 30, width: 30}}
           background="white"
+          onIncrease={(value: number) => {
+            total += value;
+          }}
         />
         <Image
           source={require('../images/delete.png')}
