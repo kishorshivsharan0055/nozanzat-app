@@ -1,64 +1,194 @@
-export const prices = {
-	"Dry Cleaning": {
-		Mens: {
-			Shirt: 30,
-			"T-Shirt": 30,
-			Trouser: 30,
-			"Suit(2 piece)": 130,
-			"Suit(3 piece)": 130,
-			"Jacket-Light": 118,
-			"Jacket-Medium": 130,
-			"Jacket-Heavy": 150,
-			"Kurta-Light": 30,
-			"Kurta-Medium": 50,
-			"Kurta-Heavy": 100,
-			Payjama: 30,
-			"Leather Jacket-Heavy": 200,
-		},
-		Womens: {
-			"Top-Light": 30,
-			"Top-Medium": 30,
-			"Top-Long": 50,
-			"Skirt-Medium": 130,
-			"Skirt-Long": 150,
-			Blouse: 50,
-			"Blouse-Heavy": 118,
-			"Saree-Plain": 75,
-			"Saree Zari-Light": 100,
-			"Saree Zari-Medium": 150,
-			"Saree Zari-Heavy": 200,
-			Dupatta: 30,
-			"Kurta-Plain": 30,
-			"Kurta-Fancy": 50,
-		},
-		Wolens: {
-			"Sweater-Light": 50,
-			"Sweater-Medium": 75,
-			"Sweater-Heavy": 100,
-			"Sweat Shirt": 75,
-			"Overcoat-Light": 100,
-			"Overcoat-Heavy": 175,
-			"Shawl-Light": 49,
-			"Shawl-Medium": 75,
-			"Shawl-Heavy": 100,
-			Cardiganss: 50,
-			"Blanket/Quilt-Single": 125,
-			"Blanket/Quilt-Double": 165,
-			"Winter Wear On Kg": 75,
-		},
-		"Non-Wearable Houshold Items": {
-			"Bedsheet-Single": 75,
-			"Bedsheet-Double": 100,
-			"Curtains-Window": 75,
-			"Curtains-Door": 125,
-		},
+import { PriceDetails } from "./types";
+
+export const prices: Array<PriceDetails> = [
+	{
+		item: "Shirt",
+		price: 30,
 	},
-};
+	{
+		item: "T-Shirt",
+		price: 30,
+	},
+	{
+		item: "Trouser",
+		price: 30,
+	},
+	{
+		item: "Suit(2 piece)",
+		price: 130,
+	},
+	{
+		item: "Suit(3 piece)",
+		price: 130,
+	},
+	{
+		item: "Jacket-Light",
+		price: 118,
+	},
+	{
+		item: "Jacket-Medium",
+		price: 130,
+	},
+	{
+		item: "Jacket-Heavy",
+		price: 150,
+	},
+	{
+		item: "Kurta-Light",
+		price: 30,
+	},
+	{
+		item: "Kurta-Medium",
+		price: 50,
+	},
+	{
+		item: "Kurta-Heavy",
+		price: 100,
+	},
+	{
+		item: "Payjama",
+		price: 30,
+	},
+	{
+		item: "Leather Jacket-Heavy",
+		price: 200,
+	},
+	{
+		item: "Top-Light",
+		price: 30,
+	},
+	{
+		item: "Top-Medium",
+		price: 30,
+	},
+	{
+		item: "Top-Long",
+		price: 50,
+	},
+	{
+		item: "Skirt-Medium",
+		price: 130,
+	},
+	{
+		item: "Skirt-Long",
+		price: 150,
+	},
+	{
+		item: "Blouse",
+		price: 50,
+	},
+	{
+		item: "Blouse-Heavy",
+		price: 118,
+	},
+	{
+		item: "Saree-Plain",
+		price: 75,
+	},
+	{
+		item: "Saree Zari-Light",
+		price: 100,
+	},
+	{
+		item: "Saree Zari-Medium",
+		price: 150,
+	},
+	{
+		item: "Saree Zari-Heavy",
+		price: 200,
+	},
+	{
+		item: "Dupatta",
+		price: 30,
+	},
+	{
+		item: "Kurta-Plain",
+		price: 30,
+	},
+	{
+		item: "Kurta-Fancy",
+		price: 50,
+	},
+	{
+		item: "Sweater-Light",
+		price: 50,
+	},
+	{
+		item: "Sweater-Medium",
+		price: 75,
+	},
+	{
+		item: "Sweater-Heavy",
+		price: 100,
+	},
+	{
+		item: "Sweat Shirt",
+		price: 75,
+	},
+	{
+		item: "Overcoat-Light",
+		price: 100,
+	},
+	{
+		item: "Overcoat-Heavy",
+		price: 175,
+	},
+	{
+		item: "Shawl-Light",
+		price: 49,
+	},
+	{
+		item: "Shawl-Medium",
+		price: 75,
+	},
+	{
+		item: "Shawl-Heavy",
+		price: 100,
+	},
+	{
+		item: "Cardigan",
+		price: 50,
+	},
+	{
+		item: "Blanket/Quilt-Single",
+		price: 125,
+	},
+	{
+		item: "Blanket/Quilt-Double",
+		price: 165,
+	},
+	{
+		item: "Winter Wear on Kg",
+		price: 75,
+	},
+	{
+		item: "Bedsheet-SIngle",
+		price: 75,
+	},
+	{
+		item: "Bedsheet-Double",
+		price: 100,
+	},
+	{
+		item: "Curtains-Window",
+		price: 75,
+	},
+	{
+		item: "Curtains-Door",
+		price: 125,
+	},
+	{
+		item: "Wash and Fold (Kg)",
+		price: 49,
+	},
+	{
+		item: "Wash and Iron (Kg)",
+		price: 59,
+	},
+	{
+		item: "Wash and Iron (Unit)",
+		price: 59,
+	},
+];
 
-export const others = {
-	"Wash and Fold(Kg)": 49,
-
-	"Wash and Iron(Kg)": 59,
-
-	"Wash and Iron(Unit)": 59,
-};
+export const others: Array<PriceDetails> = [];

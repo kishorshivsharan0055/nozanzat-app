@@ -1,6 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
-import { StyleSheet } from "react-native";
 import "react-native-gesture-handler";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import NavigationRoutes from "./src/routes/NavigationRoutes";

@@ -1,8 +1,11 @@
-import React, { createContext, useContext, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import React, { useContext, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { FAB } from "react-native-paper";
 import SelectedQuantities from "../components/SelectedQuantity";
-import { TotalPriceContext } from "../utils/TotalPriceContext";
+import InputSpinner from "react-native-input-spinner";
+import { prices } from "../utils/prices";
+import { SelectedService } from "../utils/types";
 
 interface ServiceSelectionsProps {
 	route: {
@@ -14,71 +17,43 @@ interface ServiceSelectionsProps {
 	navigation: any;
 }
 
-const pinCode = [412101, 411001, 21001, 28981, 47823, 32324, 43242, 4324234];
-
 export const ServiceSelections: React.FC<ServiceSelectionsProps> = ({
 	route,
 	navigation,
 }) => {
-	let { price: total } = useContext(TotalPriceContext);
+	// let { price: total, setPrice } = useContext(TotalPriceContext);
+	const [total, setTotal] = useState(0);
 	let { services, options } = route.params;
-	let len = options.length;
+	const [Bool, setBool] = useState(false);
 
-	const [pin_code, setPin_code] = useState(0);
-	let [available, setavailable] = useState(0);
+	useFocusEffect(
+		React.useCallback(() => {
+			// Do something when the screen is focused
 
-	const [SelectedItems, setSelectedItems] = useState<Array<string>>([""]);
+			return () => {
+				// Do something when the screen is unfocused
+				// Useful for cleanup functions
+				if (!Bool) {
+					// setPrice(0);
+				}
+			};
+		}, [])
+	);
 
-	const checkAvailability = (pin: number) => {
-		const found = pinCode.find((element) => element == pin);
+	// prices.map((value, index) => {
+	// 	console.log(value + " hello" + index);
+	// });
 
-		if (found == undefined) setavailable(2);
-		else setavailable(1);
-	};
-
-	const onSelectedItemsChange = (selectedItems: Array<string>) => {
-		setSelectedItems(selectedItems);
-	};
-
-	const selectedDryCleaningOptions = () => {
-		return;
-		<View>
-			{options.map((el) => {
-				<SelectedQuantities title={el} />;
-			})}
-		</View>;
+	const getPrice = (item: string) => {
+		let price = 0;
+		prices.map((value) => {
+			if (value.item == item) price = value.price;
+		});
+		return price;
 	};
 
 	return (
 		<View style={styles.parent}>
-			{/* <View>
-                    <Text style={{fontFamily: 'Poppins-Medium', fontWeight: 'bold', fontSize: 20}}>Check Availability</Text>
-                    
-                    <View style={{flexDirection: 'row'}}>
-                        <TextInput
-                            label="Pin Code"
-                            mode='outlined'
-                            style={{height: 35, width: '40%', paddingTop: 5}} 
-                            onChangeText={(value) => setPin_code(parseInt(value))}   
-                        />
-
-                        <Button 
-                            mode='contained'
-                            color='red' 
-                            style={{marginTop: 15, right: 0, position: 'absolute'}}
-                            onPress={() => checkAvailability(pin_code)}                             
-                        >
-                            Check
-                        </Button>                        
-                    </View>
-                    {
-                        (available == 1 ? (<Text style={{color: 'green'}}>Service is Available</Text>) : null )                        
-                    }
-                    {
-                        (available == 2 ? (<Text style={{color: 'red'}}>Service is not available</Text>) : null )
-                    }
-                </View> */}
-
 			<Text
 				style={{
 					fontFamily: "Poppins-Medium",
@@ -91,23 +66,67 @@ export const ServiceSelections: React.FC<ServiceSelectionsProps> = ({
 
 			<ScrollView
 				style={{
-					maxHeight: "70%",
+					maxHeight: 399,
+					minHeight: "20%",
 					elevation: 5,
 					backgroundColor: "white",
 					padding: 10,
+					margin: 5,
 				}}
 			>
-				{services.find(
-					(element) => element == "Wash and Iron (unit)"
-				) && <SelectedQuantities title="Wash and Iron (unit)" />}
-
-				{services.find(
-					(element) => element == "Wash and Iron (Kg)"
-				) && <SelectedQuantities title="Wash and Iron (Kg)" />}
-
-				{services.find(
-					(element) => element == "Wash and Fold (Kg)"
-				) && <SelectedQuantities title="Wash and Fold (Kg)" />}
+				{services.map((el, index) =>
+					el != "Dry Cleaning" ? (
+						<View
+							style={{ padding: 10, paddingBottom: 25 }}
+							key={index}
+						>
+							<Text> {el} </Text>
+							<View
+								style={{
+									position: "absolute",
+									right: 10,
+									flexDirection: "row",
+									alignItems: "center",
+								}}
+							>
+								<InputSpinner
+									max={50}
+									min={0}
+									initialValue={0}
+									rounded={false}
+									showBorder
+									color="white"
+									buttonTextColor="black"
+									buttonFontSize={20}
+									width={120}
+									style={{
+										borderRadius: 30,
+										elevation: 10,
+										marginTop: 5,
+									}}
+									height={35}
+									buttonStyle={{
+										borderRadius: 30,
+										width: 30,
+									}}
+									background="white"
+									onIncrease={(value: number) => {
+										const cost: number = getPrice(el);
+										setTotal(total + cost);
+									}}
+									onDecrease={(value: number) => {
+										const cost: number = getPrice(el);
+										setTotal(total - cost);
+									}}
+								/>
+								{/* <Image
+						source={require("../images/delete.png")}
+						style={{ width: 15, height: 20, marginLeft: 10 }}
+					/> */}
+							</View>
+						</View>
+					) : null
+				)}
 
 				{services.find((element) => element == "Dry Cleaning") && (
 					<View>
@@ -115,18 +134,59 @@ export const ServiceSelections: React.FC<ServiceSelectionsProps> = ({
 							Pick Quantities for Dry CLeaning
 						</Text>
 
-						{options.map((value, index) => (
-							<SelectedQuantities title={value} key={index} />
+						{options.map((el, index) => (
+							<View
+								style={{ padding: 10, paddingBottom: 25 }}
+								key={index}
+							>
+								<Text> {el} </Text>
+								<View
+									style={{
+										position: "absolute",
+										right: 10,
+										flexDirection: "row",
+										alignItems: "center",
+									}}
+								>
+									<InputSpinner
+										max={50}
+										min={0}
+										initialValue={0}
+										rounded={false}
+										showBorder
+										color="white"
+										buttonTextColor="black"
+										buttonFontSize={20}
+										width={120}
+										style={{
+											borderRadius: 30,
+											elevation: 10,
+											marginTop: 5,
+										}}
+										height={35}
+										buttonStyle={{
+											borderRadius: 30,
+											width: 30,
+										}}
+										background="white"
+										onIncrease={(value: number) => {
+											const cost: number = getPrice(el);
+											setTotal(total + cost);
+										}}
+										onDecrease={(value: number) => {
+											const cost: number = getPrice(el);
+											setTotal(total - cost);
+										}}
+									/>
+									{/* <Image
+									source={require("../images/delete.png")}
+									style={{ width: 15, height: 20, marginLeft: 10 }}
+								/> */}
+								</View>
+							</View>
 						))}
 					</View>
 				)}
-
-				<FAB
-					style={styles.fab}
-					label="Continue"
-					color="white"
-					icon={require("../images/tick.png")}
-				/>
 			</ScrollView>
 
 			<View style={{ flexDirection: "row" }}>
@@ -154,6 +214,17 @@ export const ServiceSelections: React.FC<ServiceSelectionsProps> = ({
 					Rs. {total}
 				</Text>
 			</View>
+
+			<FAB
+				style={styles.fab}
+				label="Continue"
+				color="white"
+				icon={require("../images/tick.png")}
+				onPress={() => {
+					setBool(true);
+					navigation.navigate("PlaceOrder", {});
+				}}
+			/>
 		</View>
 	);
 };
@@ -161,7 +232,7 @@ export const ServiceSelections: React.FC<ServiceSelectionsProps> = ({
 const styles = StyleSheet.create({
 	parent: {
 		flex: 1,
-		padding: 5,
+		padding: 10,
 		backgroundColor: "white",
 	},
 	fab: {
@@ -169,7 +240,7 @@ const styles = StyleSheet.create({
 		margin: 5,
 		right: 0,
 		backgroundColor: "red",
-		bottom: -80,
+		bottom: 20,
 	},
 });
 
